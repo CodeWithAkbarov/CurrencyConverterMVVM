@@ -17,7 +17,7 @@ class MainRepositoryImpl @Inject constructor(
         amount: String
     ): Resource<ExchangeResponse> {
         return try {
-            val response = api.convertRate(from, to, amount)
+            val response = api.convertRate(to, from, amount)
             if (response.isSuccessful && response.body() != null) {
                 Resource.Success(response.body())
             } else {

@@ -14,8 +14,8 @@ interface ConverterApi {
     @Headers("apikey: gbkUbduVCCvw8eizftIG08rko0hkeXdF")
     @GET("convert")
     suspend fun convertRate(
-        @Query("from") from:String,
         @Query("to") to:String,
+        @Query("from") from:String,
         @Query("amount") amount:String
     ):Response<ExchangeResponse>
 

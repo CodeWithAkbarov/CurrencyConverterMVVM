@@ -1,7 +1,6 @@
 package iqro.mobile.currencyconvertermvvm.di
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,8 +9,8 @@ import dagger.hilt.components.SingletonComponent
 import iqro.mobile.currencyconvertermvvm.data.ConverterApi
 import iqro.mobile.currencyconvertermvvm.main.MainRepository
 import iqro.mobile.currencyconvertermvvm.main.MainRepositoryImpl
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -24,11 +23,11 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getConverterApi(@ApplicationContext context: Context): ConverterApi {
+    fun getConverterApi(): ConverterApi {
         return Retrofit
             .Builder()
-            .client(OkHttpClient.Builder().addInterceptor(ChuckerInterceptor(context)).build())
             .baseUrl("https://api.apilayer.com/currency_data/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ConverterApi::class.java)
 
